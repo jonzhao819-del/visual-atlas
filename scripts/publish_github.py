@@ -26,7 +26,7 @@ from concurrent.futures import ThreadPoolExecutor
 OWNER = "jonzhao819-del"
 REPO = "visual-atlas"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-EXCLUDE_DIRS = {".git", "dist", "node_modules", ".wrangler", "__pycache__"}
+EXCLUDE_DIRS = {".git", "dist", "node_modules", "__pycache__"}
 API = f"https://api.github.com/repos/{OWNER}/{REPO}"
 
 
@@ -35,8 +35,9 @@ def gh_bin():
     if found:
         return found
     for p in (
+        "/opt/homebrew/bin/gh",
+        "/usr/local/bin/gh",
         os.path.expanduser("~/.local/bin/gh"),
-        "/Users/JON/Documents/deepseek-harness/default-workspace/punkzhou-site/bin/gh/gh",
     ):
         if os.path.exists(p):
             return p
