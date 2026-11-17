@@ -31,7 +31,7 @@
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const norm = (s) => String(s == null ? "" : s).normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-  const BATCH = 72;
+  const BATCH = 48;
   const FAV_KEY = "vsa:favorites:v1";
 
   // 对话里的文档预览是 blob iframe（sandbox 只允许脚本），读不到本地图片
