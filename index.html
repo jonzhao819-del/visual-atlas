@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f3f0e8">
+<title>视觉风格参考档案 · Visual Style Atlas</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f3f0e8'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' text-anchor='middle' fill='%23191610'%3EV%3C/text%3E%3C/svg%3E">
+<meta name="description" content="个人视觉风格参考库：504 种图像风格、技法与视觉语言的预览、说明和可直接复制的 AI 提示词。">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<a class="skip" href="#grid">跳到风格列表</a>
+
+<div class="preview-note" id="previewNote" hidden>
+  <div class="wrap preview-note-inner">
+    <div>
+      <strong id="previewNoteTitle">这个预览窗口读不到本地图片</strong>
+      <p id="previewNoteBody">你现在是在对话的文档预览里打开页面。预览沙箱只能读取脚本和样式，读不到旁边的 <code>images/</code> 文件夹（504 张图都在，没有丢），所以图片位置显示「在浏览器打开查看」。<b>双击 visual-atlas 文件夹里的 index.html</b>（或双击「打开网站.command」），用 Safari / Chrome 打开，504 张预览图就都在了。</p>
+    </div>
+    <button type="button" id="previewNoteClose" aria-label="关闭提示">知道了</button>
+  </div>
+</div>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="./" aria-label="回到首页">
+      <span class="brand-cn">视觉风格档案</span>
+      <span class="brand-en">VISUAL STYLE ATLAS</span>
+    </a>
+    <nav class="head-nav" aria-label="主导航">
+      <button type="button" class="link-btn" id="randomBtn">随便看一条</button>
+      <button type="button" class="link-btn" id="favFilterBtn">
+        收藏 <span class="num" id="favTotal">0</span>
+      </button>
+      <a class="link-btn" href="#about">关于</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-kicker">
+        <span class="dot" aria-hidden="true"></span>
+        Personal visual reference · Vol. 01
+      </div>
+      <div class="hero-grid">
+        <div>
+          <h1>视觉风格<br><em>参考档案</em></h1>
+          <p class="lede">从达盖尔银版到扩散模型，收录 <strong id="heroCount">504</strong> 种图像风格、技法与视觉语言。每条都有中英双语标题、预览、来龙去脉，和一段可以直接粘贴进 AI 的英文提示词。</p>
+        </div>
+        <dl class="stats" aria-label="档案统计">
+          <div><dt>收录</dt><dd id="statTotal">504</dd></div>
+          <div><dt>历史技法</dt><dd id="statHist">321</dd></div>
+          <div><dt>数字管线</dt><dd id="statDigit">183</dd></div>
+          <div><dt>章节</dt><dd>8</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="controls" id="controls" aria-label="筛选与搜索">
+    <div class="wrap">
+      <div class="search-row">
+        <label class="search" for="q">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"></circle><path d="M13 13l4 4"></path></svg>
+          <input id="q" type="search" placeholder="搜索中文名、英文名、年代…" autocomplete="off" spellcheck="false" aria-label="搜索风格">
+          <kbd id="kbdHint">⌘K</kbd>
+        </label>
+        <p class="count" id="count" role="status" aria-live="polite"></p>
+      </div>
+      <div class="filter-row">
+        <div class="chips" role="group" aria-label="类型">
+          <button type="button" class="chip is-on" data-kind="all">全部</button>
+          <button type="button" class="chip" data-kind="historical">历史技法</button>
+          <button type="button" class="chip" data-kind="digital">数字管线</button>
+          <button type="button" class="chip" data-kind="fav">收藏</button>
+        </div>
+        <div class="selects">
+          <label class="select">
+            <span>年代</span>
+            <select id="decade"><option value="">全部</option></select>
+          </label>
+          <label class="select">
+            <span>章节</span>
+            <select id="chapter"><option value="">全部</option></select>
+          </label>
+          <label class="select">
+            <span>排序</span>
+            <select id="sort">
+              <option value="plate">编号</option>
+              <option value="era-desc">年代 · 新到旧</option>
+              <option value="era-asc">年代 · 旧到新</option>
+              <option value="title">名称 A–Z</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="grid-head">
+      <p class="grid-label" id="gridLabel">全部风格</p>
+      <p class="grid-hint">点开任意一条，查看大图与完整提示词</p>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <p>没有找到匹配的风格。</p>
+      <button type="button" class="text-btn" id="resetBtn">清空筛选</button>
+    </div>
+    <div class="more-wrap" id="moreWrap" hidden>
+      <button type="button" class="more-btn" id="moreBtn">加载更多</button>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <p class="about-kicker">About this archive</p>
+        <h2>这份档案是怎么来的</h2>
+      </div>
+      <div class="about-body">
+        <p>全部条目整理自 <a href="https://atlas.letz.ai" target="_blank" rel="noreferrer">Atlas of Visual Effects</a>（LetzAI），共 <span id="aboutTotal">504</span> 条：<span id="aboutHist">321</span> 条历史技法、<span id="aboutDigit">183</span> 条数字管线。每条都配了中文名，和原站的英文名并列显示。预览图与文字版权归原作者与 LetzAI 所有，这里只作个人学习与创作参考，请勿商用转载。</p>
+        <p>每条提示词都是原站提供的英文原文，按原样保留、可直接复制。本站完全离线：图片、文字、提示词都在本文件夹里，换电脑拷贝整个文件夹即可，手机上也能直接打开。</p>
+        <p class="about-meta" id="aboutMeta"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <span>视觉风格参考档案 · 本地版</span>
+    <span>数据源 <a href="https://atlas.letz.ai" target="_blank" rel="noreferrer">atlas.letz.ai</a> · 仅个人参考</span>
+  </div>
+</footer>
+
+<dialog class="detail" id="detail" aria-labelledby="detailTitle">
+  <div class="detail-shell" id="detailShell">
+    <div id="detailBody"></div>
+  </div>
+</dialog>
+
+<noscript>
+  <p class="noscript">这个页面需要打开 JavaScript 才能显示风格列表。</p>
+</noscript>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
