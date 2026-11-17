@@ -199,7 +199,9 @@ def main():
     if missing:
         print("missing:", ", ".join(missing[:20]))
 
-    # 重新编译站点数据（含自建条目）
+    # 生成卡片缩略图，再重新编译站点数据（含自建条目）
+    import make_thumbs
+    make_thumbs.main()
     import build_data
     build_data.main()
 

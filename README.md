@@ -36,14 +36,14 @@
 
 改完内容（或告诉我加东西）之后，任选一种：
 
-1. 双击 **`发布到GitHub.command`**：自动提交并推送，Pages 约 1 分钟后更新。
-2. 命令行：
+双击 **`发布到GitHub.command`**：生成缩略图、重编数据、通过 GitHub API 发布，Pages 约 1 分钟后更新。
+
+这台机器访问 `github.com:443` 经常超时，所以不走 `git push`，改用 GitHub API（`api.github.com` 可正常访问）。命令行等价于：
 
 ```bash
-cd visual-atlas
-git add -A
-git commit -m "更新内容"
-git push
+python3 scripts/make_thumbs.py
+python3 scripts/build_data.py
+python3 scripts/publish_github.py "更新说明"
 ```
 
 GitHub 仓库：<https://github.com/jonzhao819-del/visual-atlas>
@@ -114,14 +114,17 @@ visual-atlas/
 │   ├── app.js              搜索 / 筛选 / 详情 / 收藏 / 复制
 │   └── data.js             编译好的 504 条数据（自动生成，别手改）
 ├── images/                 504 张预览图（webp）
+│   └── thumbs/             卡片用的小图（640px）
 ├── data/
 │   ├── atlas.json          抓取下来的原始数据
 │   ├── titles-zh.json      504 条中文标题（可手改）
 │   └── custom.json         你自己加的条目
 ├── scripts/
 │   ├── fetch_atlas.py      抓取原站
+│   ├── make_thumbs.py      生成卡片缩略图
 │   ├── build_data.py       编译 data.js
-│   └── add_style.py        加一条新风格
+│   ├── add_style.py        加一条新风格
+│   └── publish_github.py   通过 GitHub API 发布
 ├── screenshots/            效果截图
 ├── .nojekyll               GitHub Pages 跳过 Jekyll
 ├── robots.txt              不让搜索引擎收录
@@ -135,7 +138,7 @@ visual-atlas/
 ## 说明
 
 - 纯静态：没有框架、没有构建步骤、没有外部字体请求，断网也能用。
-- 图片懒加载，504 张不会一次性读进内存。
+- 图片懒加载；网格用 640px 小图（`images/thumbs/`），详情才加载原图，首屏快很多。
 - `file://`、`http://` 本地服务、GitHub Pages 三种方式都测过。
 - 提示词为原站英文原文，未做翻译，避免二次转写改变效果。
 - 中文标题在 `data/titles-zh.json` 里，按 slug 对应；改完跑 `python3 scripts/build_data.py`。

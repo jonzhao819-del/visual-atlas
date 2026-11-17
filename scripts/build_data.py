@@ -42,6 +42,9 @@ def main():
     for e in effects:
         if not e.get("titleZh"):
             e["titleZh"] = titles_zh.get(e.get("slug"), "")
+        img = e.get("image") or ""
+        thumb = "images/thumbs/" + os.path.basename(img) if img else ""
+        e["thumb"] = thumb if thumb and os.path.exists(os.path.join(ROOT, thumb)) else img
     for e in custom.get("effects", []):
         e["custom"] = True
 

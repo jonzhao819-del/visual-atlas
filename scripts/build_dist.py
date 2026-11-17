@@ -39,6 +39,12 @@ def main():
         if name.lower().endswith(".webp"):
             shutil.copy2(os.path.join(src_img, name), os.path.join(DIST, "images", name))
             n += 1
+    thumbs = os.path.join(src_img, "thumbs")
+    if os.path.isdir(thumbs):
+        os.makedirs(os.path.join(DIST, "images", "thumbs"), exist_ok=True)
+        for name in os.listdir(thumbs):
+            if name.lower().endswith(".webp"):
+                shutil.copy2(os.path.join(thumbs, name), os.path.join(DIST, "images", "thumbs", name))
 
     with open(os.path.join(DIST, "robots.txt"), "w", encoding="utf-8") as f:
         f.write("User-agent: *\nDisallow: /\n")

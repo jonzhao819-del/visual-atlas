@@ -127,6 +127,14 @@ def main():
 
     slug = slugify(pick("slug") or title)
     image = save_image(pick("image"), slug) if pick("image") else data.get("image", "")
+    if image:
+        from make_thumbs import make_one
+        thumb_dir = os.path.join(IMG_DIR, "thumbs")
+        os.makedirs(thumb_dir, exist_ok=True)
+        try:
+            make_one(os.path.join(ROOT, image), os.path.join(thumb_dir, os.path.basename(image)))
+        except Exception as exc:  # noqa: BLE001
+            print("缩略图生成失败，卡片会退回原图：", exc)
 
     tags = data.get("tags") or []
     if args.tags:

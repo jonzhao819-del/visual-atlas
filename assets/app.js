@@ -211,7 +211,7 @@
   function cardHTML(e) {
     const ch = chapterOf(e);
     const metaRight = ch ? ch.zh : "";
-    const src = e.image ? encodeURI(e.image) : "";
+    const src = (e.thumb || e.image) ? encodeURI(e.thumb || e.image) : "";
     const plate = String(e.plate || 0).padStart(3, "0");
     const fav = favs.has(e.slug);
     const img = src
